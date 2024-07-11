@@ -16,14 +16,13 @@ env:
 jobs:
   deploy:
     runs-on: windows-latest
-    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
 
-    steps:      
+    steps:
       - name: Login to Azure
         uses: azure/login@v1
         with:
