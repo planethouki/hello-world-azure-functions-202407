@@ -37,10 +37,12 @@ jobs:
           popd
 
       - name: Archive project files
+        shell: pwsh
         run: |
           Archive-File -Path './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}' -DestinationPath '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
 
       - name: Check archive contents
+        shell: pwsh
         run: |
           Expand-Archive -Path '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip' -DestinationPath './unzipped'
           Get-ChildItem -Recurse ./unzipped
@@ -51,6 +53,6 @@ jobs:
         id: fa
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_RUN78 }}
           
