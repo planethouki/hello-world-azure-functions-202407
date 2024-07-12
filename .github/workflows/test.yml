@@ -22,9 +22,14 @@ jobs:
     steps:
       - name: Print Web App URL
         run: echo "Web App URL is ${{ steps.deploy-to-webapp.outputs.webapp-url }}"
+        
       - name: Login to Azure
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1C54AB19592F4308A88931A8BB840A76 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_40B9CDEB4D864D1D8A8D24CE3E85858C }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_112889DB400B4F19A54D0FF005E22C2A }}
+
+      - name: Test access to Azure
+        run: |
+          az account show --query name
