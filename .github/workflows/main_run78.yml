@@ -57,3 +57,11 @@ jobs:
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_RUN78 }}
           
+
+
+      - name: Clean up temporary files
+        if: ${{ always() }}
+        shell: pwsh
+        run: |
+          Remove-Item -Force -Recurse './unzipped'
+          Remove-Item -Force './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
