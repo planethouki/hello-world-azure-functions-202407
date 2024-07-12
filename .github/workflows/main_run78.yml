@@ -35,6 +35,15 @@ jobs:
           npm run build --if-present
           npm run test --if-present
           popd
+
+      - name: Archive project files
+        run: |
+          Archive-File -Path './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}' -DestinationPath '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
+
+      - name: Check archive contents
+        run: |
+          Expand-Archive -Path '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip' -DestinationPath './unzipped'
+          Get-ChildItem -Recurse ./unzipped
     
 
       - name: 'Run Azure Functions Action'
@@ -42,6 +51,6 @@ jobs:
         id: fa
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_RUN78 }}
           
