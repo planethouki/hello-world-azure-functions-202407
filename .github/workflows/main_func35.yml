@@ -64,6 +64,5 @@ jobs:
         id: fa
         with:
           app-name: 'func35'
-          slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           
