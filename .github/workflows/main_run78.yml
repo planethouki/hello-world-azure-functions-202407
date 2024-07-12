@@ -39,7 +39,8 @@ jobs:
       - name: Archive project files
         shell: pwsh
         run: |
-          Archive-File -Path './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}' -DestinationPath '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
+          Compress-Archive -Path './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/*' -DestinationPath '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/package.zip'
+
 
       - name: Check archive contents
         shell: pwsh
