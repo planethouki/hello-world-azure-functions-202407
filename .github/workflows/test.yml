@@ -23,6 +23,8 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
+      - name: Print Web App URL
+        run: echo "Web App URL is ${{ steps.deploy-to-webapp.outputs.webapp-url }}"
       - name: Login to Azure
         uses: azure/login@v1
         with:
